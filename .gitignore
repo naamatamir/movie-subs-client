@@ -1,1 +1,23 @@
-node_modules
+# dependencies
+/node_modules
+
+# logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# dotenv environment variables
+.env
+
+# Debug logs
+npm-debug.log*
+
+# Build directory
+/build
+
+# Coverage directory used by tools like istanbul
+/coverage

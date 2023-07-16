@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const gatewayURL = 'http://localhost:8002/subscriptions';
+const gatewayURL =`${process.env.REACT_APP_GATEWAY_URL}/subscriptions`;
+  // 'http://localhost:8002/subscriptions';
 
 export const getSubscriptionsAPI = async () => {
   try {

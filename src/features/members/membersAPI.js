@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const gatewayURL = 'http://localhost:8002/members';
+const gatewayURL =`${process.env.REACT_APP_GATEWAY_URL}/members`;
+  // 'http://localhost:8002/members';
 
 export const getMembersAPI = async () => {
   try {

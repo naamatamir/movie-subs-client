@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const gatewayURL = 'http://localhost:8002/permissions';
+const gatewayURL =`${process.env.REACT_APP_GATEWAY_URL}/permissions`;
+  // 'http://localhost:8002/permissions';
 
 export const getPermissionsAPI = async () => {
     try {

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const gatewayURL = 'http://localhost:8002/movies';
+const gatewayURL = `${process.env.REACT_APP_GATEWAY_URL}/movies`;
+  // 'http://localhost:8002/movies';
 
 export const getMoviesAPI = async () => {
     try {
