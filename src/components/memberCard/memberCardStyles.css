@@ -1,0 +1,129 @@
+.member-card-wrapper {
+  padding-left: 10px;
+}
+
+.member-card-wrapper {
+  min-width: 330px;
+  height: auto;
+  min-height: 37vh;
+}
+
+@media (orientation: landscape) {
+  .member-card-wrapper {
+    min-height: 50vh;
+  }
+}
+
+@media (max-width: 599px) {
+  .member-card-wrapper {
+    min-height: 45vh;
+  }
+}
+
+@media (min-width: 600px) {
+  .member-card-wrapper {
+    min-height: 40vh;
+  }
+}
+
+@media (min-width: 900px) {
+  .member-card-wrapper {
+    min-height: 37vh;
+  }
+}
+
+.member-data-value {
+  color: #a7a5a5;
+}
+.avatar {
+  color: black !important;
+}
+
+.purple-member-avatar {
+  background-color: hsl(259, 68%, 84%) !important;
+  border: 1px solid black ;
+}
+
+.blue-member-avatar {
+  background-color: hsl(194, 79%, 84%) !important;
+  border: 1px solid black ;
+
+}
+
+.green-member-avatar {
+  background-color: hsl(155, 39%, 84%) !important;
+  border: 1px solid black ;
+
+}
+
+.red-member-avatar {
+  background-color: hsl(40, 100%, 84%) !important;
+  border: 1px solid black ;
+
+}
+
+.member-purple,
+.member-blue,
+.member-green,
+.member-red {
+  border: 3px solid;
+}
+
+.member-purple {
+  border-color: hsl(259, 68%, 84%);
+}
+
+.member-blue {
+  border-color: hsl(194, 79%, 84%);
+}
+
+.member-green {
+  border-color: hsl(155, 39%, 84%);
+}
+
+.member-red {
+  border-color: hsl(40, 100%, 84%);
+}
+
+.member-action-buttons {
+  display: flex;
+  padding: 16px;
+  padding-left: 24px;
+  /* gap: 10px; */
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-right: 10px;
+}
+
+.member-action-buttons .edit {
+  background-color: #efeafb;
+  color: #845adf;
+  border-radius: 5px;
+}
+
+.member-action-buttons .delete {
+  background-color: #fde9e7;
+  color: #f44336;
+  border-radius: 5px;
+}
+
+.member-action-buttons .edit:hover {
+  background-color: #845adf;
+  color: white;
+}
+.member-action-buttons .delete:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.svg-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.movie-link{
+  color: #845adf;
+  text-decoration: underline;
+  cursor: pointer;
+  padding-right: 7px;
+}

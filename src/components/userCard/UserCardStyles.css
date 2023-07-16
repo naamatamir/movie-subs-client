@@ -1,0 +1,114 @@
+.user-card-wrapper {
+  padding-left: 10px;
+}
+
+.user-card-wrapper {
+  min-width: 330px;
+  height: auto;
+  min-height: 37vh; 
+}
+
+@media (orientation: landscape) {
+  .user-card-wrapper {
+    min-height: 50vh;
+  }
+}
+
+@media (max-width: 599px) {
+  .user-card-wrapper {
+    min-height: 45vh;
+  }
+}
+
+@media (min-width: 600px) {
+  .user-card-wrapper {
+    min-height: 40vh;
+  }
+}
+
+@media (min-width: 900px) {
+  .user-card-wrapper {
+    min-height: 37vh;
+  }
+}
+
+.user-data-value {
+  color: #a7a5a5
+}
+.avatar {
+  color: black !important;
+}
+
+.purple-avatar {
+  background-color: hsl(259, 68%, 84%) !important;
+}
+
+.blue-avatar {
+  background-color: hsl(194, 79%, 84%)  !important;
+}
+
+.green-avatar {
+  background-color: hsl(155, 39%, 84%) !important;
+}
+
+.red-avatar {
+  background-color: hsl(40, 100%, 84%) !important;
+}
+
+.user-purple,
+.user-blue,
+.user-green,
+.user-red {
+  border-left: 10px solid;
+}
+
+.user-purple {
+  border-color: hsl(259, 68%, 84%);
+}
+
+.user-blue {
+  border-color: hsl(194, 79%, 84%);
+}
+
+.user-green {
+  border-color: hsl(155, 39%, 84%);
+}
+
+.user-red {
+  border-color: hsl(40, 100%, 84%);
+}
+
+.user-action-buttons {
+  display: flex;
+  padding: 16px;
+  padding-left: 24px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-right: 10px;
+}
+
+.user-action-buttons .edit {
+  background-color: #efeafb;
+  color: #845adf;
+  border-radius: 5px;
+}
+
+.user-action-buttons .delete {
+  background-color: #fde9e7;
+  color: #f44336;
+  border-radius: 5px;
+}
+
+.user-action-buttons .edit:hover {
+  background-color: #845adf;
+  color: white;
+}
+.user-action-buttons .delete:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.svg-icon {
+  width: 16px;
+  height: 16px;
+}

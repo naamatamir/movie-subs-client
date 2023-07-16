@@ -1,0 +1,23 @@
+.add-member-form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    padding: 37px 0 9px 0;
+    margin: 0 20px;
+    min-width: 35ch;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
+    transition: all 0.3s ease-in-out;
+    background-color: 'white';
+  }
+  @media only screen and (min-width: 1330px) {
+    .add-member-form-wrapper {
+      width: 65%;
+      margin: 0 auto;
+      max-width: none;
+    }
+  }
+  
