@@ -27,7 +27,8 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:8002/authUsers/login',
+        `${process.env.REACT_APP_GATEWAY_URL}/authUsers/login`,
+        // 'http://localhost:8002/authUsers/login',
         {
           username: loginValue.username,
           password: loginValue.password,

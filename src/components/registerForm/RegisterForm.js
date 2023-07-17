@@ -35,7 +35,8 @@ const RegisterForm = () => {
     }
     try {
       const response = await axios.post(
-        'http://localhost:8002/authUsers/register',
+        `${process.env.REACT_APP_GATEWAY_URL}/authUsers/register`,
+        // 'http://localhost:8002/authUsers/register',
         {
           username: registerValue.username,
           password: registerValue.password,
