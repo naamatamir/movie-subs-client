@@ -4,15 +4,23 @@ import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { updateMovie } from '../../features/movies/moviesThunks';
 import { useToast } from '../../hoc/ToastProvider'
 import TextField from '../shared/TextField';
-import { Button } from '@mui/material';
-
-import Box from '@mui/material/Box';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from '@mui/material';
 import './editMovieFormStyles.css';
 
 const EditMovieForm = () => {
   const location = useLocation();
   const { id } = useParams();
   const movie = location.state?.movie|| {};
+
+  const [imageUrl, setImageUrl] = useState('');
+  const [showUrlDialog, setShowUrlDialog] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,6 +40,26 @@ const EditMovieForm = () => {
       ...movieData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleImageClick = () => {
+    setShowUrlDialog(true);
+  };
+  
+  const handleUrlInputChange = (e) => {
+    setImageUrl(e.target.value);
+  };
+  
+  const handleUrlDialogClose = () => {
+    setShowUrlDialog(false);
+  };
+  
+  const handleUrlDialogSubmit = () => {
+    setMovieData({
+      ...movieData,
+      image: imageUrl,
+    });
+    setShowUrlDialog(false);
   };
 
   const handleSubmit =  (e) => {
@@ -62,7 +90,7 @@ const EditMovieForm = () => {
         }}
         noValidate
         autoComplete='off'>
-        <img className='movie-img' src={movieData.image} alt={movieData.name} />
+        <img className='movie-img' src={movieData.image} alt={movieData.name} onClick={handleImageClick}/>
         <Box
           className='edit-movie-fields-actions'
           sx={{
@@ -131,6 +159,25 @@ const EditMovieForm = () => {
           </div>
         </Box>
       </Box>
+      <Dialog open={showUrlDialog} onClose={handleUrlDialogClose}>
+  <DialogTitle>Enter Image URL</DialogTitle>
+  <DialogContent>
+    <TextField
+      autoFocus
+      label='URL'
+      type='text'
+      value={imageUrl}
+      onChange={handleUrlInputChange}
+      fullWidth
+    />
+  </DialogContent>
+  <DialogActions>
+          <Button onClick={handleUrlDialogClose}>Cancel</Button>
+          <Button onClick={() => {setMovieData({...movieData, image: ''}); setShowUrlDialog(false);}}>Remove</Button>
+    <Button onClick={handleUrlDialogSubmit}>Submit</Button>
+  </DialogActions>
+</Dialog>
+
     </form>
   );
 };
