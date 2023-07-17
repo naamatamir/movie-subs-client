@@ -23,25 +23,20 @@ const MoviesPage = () => {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
+  try {
     const token = localStorage.getItem('token');
-
     if (token) {
-      let decodedToken;
-
-      try {
-        decodedToken = jwtDecode(token);
-        setIsAdmin(decodedToken.isAdmin);
-
-        dispatch(getMovies());
-        dispatch(getSubscriptions());
-        dispatch(getMembers());
-      } catch (error) {
-        console.error(error);
-      }
+      const decodedToken = jwtDecode(token);
+      setIsAdmin(decodedToken.isAdmin);
     }
-  }, [dispatch]);
-
+    dispatch(getMovies());
+    dispatch(getSubscriptions());
+    dispatch(getMembers());
+  } catch (error) {
+    console.error(error);
+  }
+}, [dispatch]);
 
   const handleAddClick = () => {
     if (

@@ -10,6 +10,16 @@ import AppRoutes from './routes/routes';
 import { ToastProvider } from './hoc/ToastProvider';
 import LoadingOverlay from './components/shared/loadingOverlay/LoadingOverlay';
 
+axios.interceptors.request.use(function (config) {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -20,7 +30,6 @@ function App() {
       const token = localStorage.getItem('token');
       const userPermissions = JSON.parse(localStorage.getItem('permissions'));
       if (token) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         setIsAuthenticated(true);
         setPermissions(userPermissions);
       }
