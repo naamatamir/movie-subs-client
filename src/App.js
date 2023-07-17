@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
 } from 'react-router-dom';
+import axios from 'axios';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@emotion/react';
 import theme from './styles/theme';
@@ -19,6 +20,7 @@ function App() {
       const token = localStorage.getItem('token');
       const userPermissions = JSON.parse(localStorage.getItem('permissions'));
       if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         setIsAuthenticated(true);
         setPermissions(userPermissions);
       }
