@@ -29,7 +29,7 @@ const EditMovieForm = () => {
   const [movieData, setMovieData] = useState({
     image: movie.image || '',
     name: movie.name || '',
-    premieredYear: movie.premiered
+    premiered: movie.premiered
       ? new Date(movie.premiered).getFullYear()
       : '',
   });
@@ -65,6 +65,7 @@ const EditMovieForm = () => {
   const handleSubmit =  (e) => {
     e.preventDefault();
     try {
+      movieData.premiered = new Date(movieData.premiered.toString());
       dispatch(updateMovie({ id, movieData }));
       console.log('dispatch edit movie:', movieData);
       showToast('Movie updated successfully!', 'success');
@@ -117,15 +118,15 @@ const EditMovieForm = () => {
               value={movieData.name}
               onChange={handleInputChange}
             />
-            <label className='movie-label-year' htmlFor='premieredYear'>
+            <label className='movie-label-year' htmlFor='premiered'>
               Premiered Year
             </label>
             <TextField
-              id='premieredYear'
-              name='premieredYear'
+              id='premiered'
+              name='premiered'
               type='number'
               inputProps={{ min: 1888, max: currentYear }}
-              value={movieData.premieredYear}
+              value={movieData.premiered}
               onChange={handleInputChange}
             />
           </Box>
