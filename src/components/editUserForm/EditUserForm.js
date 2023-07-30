@@ -53,7 +53,7 @@ const EditUserForm = () => {
       userPermissions: newPermissions,
     });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -81,7 +81,7 @@ const EditUserForm = () => {
         ).unwrap();
       }
       showToast('User added successfully!', 'success');
-    navigate('/users');
+      navigate('/users');
       console.log('user updated:', userData);
     } catch (error) {
       console.error(error);

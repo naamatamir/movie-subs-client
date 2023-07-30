@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUsers, selectUsersLoading } from '../../features/users/usersSlice';
+import {
+  selectUsers,
+  selectUsersLoading,
+} from '../../features/users/usersSlice';
 import { getUsers } from '../../features/users/usersThunks';
 import { getPermissions } from '../../features/permissions/permissionsThunks';
 import PageHeader from '../../components/shared/PageHeader';
@@ -19,8 +22,10 @@ const UsersPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getUsers());
-    dispatch(getPermissions());
+    dispatch(getUsers())
+      // .then(() => {
+      dispatch(getPermissions());
+    // });
   }, [dispatch]);
 
   const sortedUsers =
@@ -30,25 +35,28 @@ const UsersPage = () => {
 
   return (
     <>
-       <LoadingOverlay loading={isUsersLoading} />
-     <Box className="users-header-container">
-        <PageHeader title='Users'  />
+      <LoadingOverlay loading={isUsersLoading} />
+      <Box className='users-header-container'>
+        <PageHeader title='Users' />
         <IconButton
           aria-label='add'
           className='user-action-button add'
           color='primary'
           size='large'
-          sx={{padding:0}}
+          sx={{ padding: 0 }}
           onClick={() => navigate('/users/add')}>
           <AddCircleRoundedIcon
-            fontSize="inherit" sx={{ fontSize: '1.8rem' }}
+            fontSize='inherit'
+            sx={{ fontSize: '1.8rem' }}
           />
         </IconButton>
       </Box>
       <Container className='users-cards-container'>
         {sortedUsers && sortedUsers.length > 0 ? (
           sortedUsers.map((user, index) => {
-            return user && <UserCard key={user._id} user={user} index={index} />;
+            return (
+              user && <UserCard key={user._id} user={user} index={index} />
+            );
           })
         ) : (
           <p>No users found</p>

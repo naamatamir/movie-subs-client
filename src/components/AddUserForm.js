@@ -40,12 +40,17 @@ const AddUserForm = () => {
     }));
   };
 
-  const handleSubmit =  async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await dispatch(addUser(userData));
-      const { id } = userData; 
-      await dispatch(addPermission({ authUserId: id, permissionData: userData.userPermissions })).unwrap();
+      const { id } = userData;
+      await dispatch(
+        addPermission({
+          authUserId: id,
+          permissionData: userData.userPermissions,
+        })
+      ).unwrap();
       console.log('user added:', userData);
       showToast('User added successfully!', 'success');
       navigate('/users');
@@ -162,7 +167,10 @@ const AddUserForm = () => {
           <Typography className='add-user-typography' variant='h6'>
             Permissions
           </Typography>
-          <CheckboxGroup userPermissions={userData.userPermissions} onCheckChange={handlePermissionChange} />
+          <CheckboxGroup
+            userPermissions={userData.userPermissions}
+            onCheckChange={handlePermissionChange}
+          />
         </Box>
         <Box
           className='add-action-buttons'
