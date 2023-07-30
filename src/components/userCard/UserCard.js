@@ -1,8 +1,8 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectPermissions } from '../../features/permissions/permissionsSlice';
 import { useNavigate } from 'react-router-dom';
-import { deleteUser } from '../../features/users/usersThunks'
+import { deleteUser } from '../../features/users/usersThunks';
 import { useToast } from '../../hoc/ToastProvider';
 import {
   Card,
@@ -22,18 +22,22 @@ const UserCard = ({ user, index }) => {
   const permissions = useSelector(selectPermissions);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const showToast = useToast();
   const [expanded, setExpanded] = useState(false);
 
-  const id = user?._id
+  // if (!user || !user._id || !permissions) {
+  //   return null;
+  // }
+
+  const id = user?._id;
 
   const userPermissionsObject = permissions
     ? permissions.find((permission) => permission.authUserId === user?._id)
-    : {permissions: []};
+    : { permissions: [] };
 
-    const userPermissions = userPermissionsObject?.permissions || [];
-  
+  const userPermissions = userPermissionsObject?.permissions || [];
+
   const colors = ['purple', 'blue', 'green', 'red'];
   const userColor = colors[index % colors.length];
 
@@ -43,12 +47,9 @@ const UserCard = ({ user, index }) => {
 
   const handleDelete = (e) => {
     try {
-      dispatch(deleteUser( id ));
-      showToast(
-        'User deleted successfully!', 
-        'success', 
-        6000, 
-        () => window.location.reload()
+      dispatch(deleteUser(id));
+      showToast('User deleted successfully!', 'success', 6000, () =>
+        window.location.reload()
       );
       console.log('user deleted: ', id);
     } catch (error) {
@@ -143,21 +144,39 @@ const UserCard = ({ user, index }) => {
             onClick={handleUpdate}>
             <BorderColorOutlinedIcon className='svg-icon' />
           </IconButton>
-          <IconButton aria-label='delete' className='action-button delete'  onClick={handleDelete}>
+          <IconButton
+            aria-label='delete'
+            className='action-button delete'
+            onClick={handleDelete}>
             <DeleteOutlinedIcon className='svg-icon' />
           </IconButton>
         </div>
       </div>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <CardContent sx={{ padding: 0, marginLeft: 3, textAlign: 'left' }}>
-          {userPermissions.map((permission) => (
+          {userPermissions.length > 0 ? (
+            userPermissions.map((permission) => (
+              <Typography
+                key={permission}
+                className='user-data-value'
+                sx={{ lineHeight: 1.75 }}>
+                {permissionMapping[permission] || permission}
+              </Typography>
+            ))
+          ) : (
+            <Typography className='user-data-value'>
+              User does not have permissions
+            </Typography>
+          )}
+
+          {/* {userPermissions.map((permission) => (
             <Typography
               key={permission}
               className='user-data-value'
               sx={{ lineHeight: 1.75 }}>
               {permissionMapping[permission] || permission}
             </Typography>
-          ))}
+          ))} */}
         </CardContent>
       </Collapse>
     </Card>
