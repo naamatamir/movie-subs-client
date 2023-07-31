@@ -165,18 +165,9 @@ const UserCard = ({ user, index }) => {
             ))
           ) : (
             <Typography className='user-data-value'>
-              User does not have permissions
+              User is admin <br>with all permissions</br>
             </Typography>
           )}
-
-          {/* {userPermissions.map((permission) => (
-            <Typography
-              key={permission}
-              className='user-data-value'
-              sx={{ lineHeight: 1.75 }}>
-              {permissionMapping[permission] || permission}
-            </Typography>
-          ))} */}
         </CardContent>
       </Collapse>
     </Card>
