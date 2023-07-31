@@ -7,9 +7,9 @@
 .login-page-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .login-form-wrapper {
@@ -38,7 +38,6 @@
   .login-form-wrapper {
     width: 65%;
     height: 70vh;
-
     margin: 0 auto;
     max-width: none;
   }

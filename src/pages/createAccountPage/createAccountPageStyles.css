@@ -4,13 +4,6 @@
   justify-content: center; 
 }
 
-/* .create-account-page-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-} */
-
 .create-account-page-container {
   display: flex;
   flex-direction: column;
@@ -51,7 +44,6 @@
   .create-account-form-wrapper {
     width: 65%;
     height: 70vh;
-
     margin: 0 auto;
     max-width: none;
   }
