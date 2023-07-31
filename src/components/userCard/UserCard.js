@@ -165,7 +165,7 @@ const UserCard = ({ user, index }) => {
             ))
           ) : (
             <Typography className='user-data-value'>
-              User is admin <br>with all permissions</br>
+              User is admin <br /> with all permissions
             </Typography>
           )}
         </CardContent>
