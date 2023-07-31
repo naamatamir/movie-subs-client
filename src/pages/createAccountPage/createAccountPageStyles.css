@@ -1,45 +1,58 @@
-.create-account-page-container {
+.header-wrapper {
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+}
+
+/* .create-account-page-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+} */
+
+.create-account-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .create-account-form-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: white;
-    padding: 1.5rem 0;
-    margin: 3rem 1.2rem 1.2rem 1.2rem;
-    min-width: 35ch;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
-    transition: all 0.3s ease-in-out;
-    background-color: 'white';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  padding: 1.5rem 0;
+  margin: 0rem 1.2rem 1.2rem 1.2rem;
+  min-width: 35ch;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
+  transition: all 0.3s ease-in-out;
+  background-color: 'white';
 }
 
 @media only screen and (min-width: 600px) and (max-width: 1330px) {
   .create-account-form-wrapper {
-      min-width: 880px;
+    min-width: 880px;
   }
 }
 
 @media only screen and (min-width: 900px) {
-    .create-account-form-wrapper {
-      margin: 0 2rem;
-      height: 70vh;
-    }
+  .create-account-form-wrapper {
+    margin: 0 2rem;
+    height: 70vh;
   }
-  @media only screen and (min-width: 1330px) {
-    .create-account-form-wrapper {
-      width: 65%;
-      height: 70vh;
-  
-      margin: 0 auto;
-      max-width: none;
-    }
+}
+@media only screen and (min-width: 1330px) {
+  .create-account-form-wrapper {
+    width: 65%;
+    height: 70vh;
+
+    margin: 0 auto;
+    max-width: none;
   }
-  
+}

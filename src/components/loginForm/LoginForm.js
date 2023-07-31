@@ -19,7 +19,11 @@ const LoginForm = () => {
   const handleInputChange = (e) => {
     setLoginValue({
       ...loginValue,
-      [e.target.name]: e.target.value,
+      // [e.target.name]: e.target.value,
+      [e.target.name]:
+        e.target.name === 'username'
+          ? e.target.value.toLowerCase()
+          : e.target.value,
     });
   };
 
@@ -120,10 +124,7 @@ const LoginForm = () => {
               alignItems: 'center',
             },
           }}>
-          <Button
-            className='login-btn'
-            type='submit'
-            paddingVertical>
+          <Button className='login-btn' type='submit' paddingVertical>
             Sign In
           </Button>
         </Box>

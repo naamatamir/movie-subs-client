@@ -4,10 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '../shared/Button';
 import Typography from '@mui/material/Typography';
-import TextField from '../shared/TextField';
+// import TextField from '../shared/TextField';
+import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import jwt_decode from "jwt-decode";
-import './registerFormStyles.css'
+import jwt_decode from 'jwt-decode';
+import Tooltip from '@mui/material/Tooltip';
+import './registerFormStyles.css';
 
 const RegisterForm = () => {
   const [registerValue, setRegisterValue] = useState({
@@ -44,23 +46,25 @@ const RegisterForm = () => {
           lastName: registerValue.lastName,
         }
       );
-  
+
       const token = response.data.token;
       if (token) {
         localStorage.setItem('token', token);
-        
+
         // Decode the token, extract permissions, and save them in local storage
         const decodedToken = jwt_decode(token);
         const permissions = decodedToken.permissions;
         localStorage.setItem('permissions', JSON.stringify(permissions));
-  
+
         console.log('Registration successful');
         navigate('/menu');
       } else {
         throw new Error('Registration failed');
       }
     } catch (error) {
-      alert('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character. White spaces are not allowed.'); 
+      alert(
+        'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character. White spaces are not allowed.'
+      );
       console.error('Failed to create account', error);
     }
   };
@@ -76,7 +80,10 @@ const RegisterForm = () => {
         }}
         noValidate
         autoComplete='off'>
-        <Typography variant='h5' component='div' sx={{textAlign:'center', fontWeight:'bold'}}>
+        <Typography
+          variant='h5'
+          component='div'
+          sx={{ textAlign: 'center', fontWeight: 'bold' }}>
           Sign Up
         </Typography>
         <Box
@@ -134,13 +141,17 @@ const RegisterForm = () => {
             <label className='sign-up-label' htmlFor='createdAt'>
               Password
             </label>
-            <TextField
-              id='password'
-              name='password'
-              type='password'
-              value={registerValue.password}
-              onChange={handleInputChange}
-            />
+            <Tooltip
+              title='Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character. White spaces are not allowed.'
+              placement='right'>
+              <TextField
+                id='password'
+                name='password'
+                type='password'
+                value={registerValue.password}
+                onChange={handleInputChange}
+              />
+            </Tooltip>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <label className='sign-up-label' htmlFor='sessionTimeout'>
@@ -173,11 +184,15 @@ const RegisterForm = () => {
               alignItems: 'center',
             },
           }}>
-          <Button className='create-account-btn' type='submit' fullWidth paddingVertical >
+          <Button
+            className='create-account-btn'
+            type='submit'
+            fullWidth
+            paddingVertical>
             Create Account
           </Button>
         </Box>
-        <Typography sx={{  textAlign:'center' }} color='text.secondary'>
+        <Typography sx={{ textAlign: 'center' }} color='text.secondary'>
           Already have an account?{' '}
           <Link href='/login' underline='none'>
             Sign In

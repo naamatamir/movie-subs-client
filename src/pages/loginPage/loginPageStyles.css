@@ -1,40 +1,45 @@
-.login-page-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-.login-form-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: white;
-    padding: 2.3rem 0;
-    margin: 0 1.2rem 1.2rem 1.2rem;
-    min-width: 35ch;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
-    transition: all 0.3s ease-in-out;
-    background-color: 'white';
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.login-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  padding: 2.3rem 0;
+  margin: 0 1.2rem 1.2rem 1.2rem;
+  min-width: 35ch;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
+  transition: all 0.3s ease-in-out;
+  background-color: 'white';
+}
 
 @media only screen and (min-width: 900px) {
-    .login-form-wrapper {
-      margin: 0 2rem;
-      height: 70vh;
-    }
+  .login-form-wrapper {
+    margin: 0 2rem;
+    height: 70vh;
   }
-  @media only screen and (min-width: 1330px) {
-    .login-form-wrapper {
-      width: 65%;
-      height: 70vh;
-  
-      margin: 0 auto;
-      max-width: none;
-    }
+}
+@media only screen and (min-width: 1330px) {
+  .login-form-wrapper {
+    width: 65%;
+    height: 70vh;
+
+    margin: 0 auto;
+    max-width: none;
   }
-  
+}
