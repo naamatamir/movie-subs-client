@@ -1,14 +1,11 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Button from '../shared/Button';
-import Typography from '@mui/material/Typography';
-// import TextField from '../shared/TextField';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import jwt_decode from 'jwt-decode';
-import Tooltip from '@mui/material/Tooltip';
+import axios from 'axios';
+import Button from '../shared/Button';
+import { Box, Typography, TextField, Link, Tooltip, IconButton, InputAdornment, OutlinedInput, FormControl } from '@mui/material';
+import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import './registerFormStyles.css';
 
 const RegisterForm = () => {
@@ -20,13 +17,30 @@ const RegisterForm = () => {
     confirmPassword: '',
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
+    let value = e.target.value;
+    if (e.target.name === 'username') {
+      value = value.toLowerCase();
+    } else if (e.target.name === 'firstName' || e.target.name === 'lastName') {
+      value = value.charAt(0).toUpperCase() + value.slice(1);
+    }
     setRegisterValue({
       ...registerValue,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     });
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const handleSubmit = async (e) => {
@@ -38,7 +52,6 @@ const RegisterForm = () => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_GATEWAY_URL}/authUsers/register`,
-        // 'http://localhost:8002/authUsers/register',
         {
           username: registerValue.username,
           password: registerValue.password,
@@ -51,7 +64,6 @@ const RegisterForm = () => {
       if (token) {
         localStorage.setItem('token', token);
 
-        // Decode the token, extract permissions, and save them in local storage
         const decodedToken = jwt_decode(token);
         const permissions = decodedToken.permissions;
         localStorage.setItem('permissions', JSON.stringify(permissions));
@@ -103,6 +115,7 @@ const RegisterForm = () => {
               type='text'
               value={registerValue.username}
               onChange={handleInputChange}
+              required
             />
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -115,6 +128,7 @@ const RegisterForm = () => {
               type='text'
               value={registerValue.firstName}
               onChange={handleInputChange}
+              required
             />
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -127,6 +141,7 @@ const RegisterForm = () => {
               type='text'
               value={registerValue.lastName}
               onChange={handleInputChange}
+              required
             />
           </Box>
         </Box>
@@ -138,32 +153,95 @@ const RegisterForm = () => {
             gap: '16px',
           }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <label className='sign-up-label' htmlFor='createdAt'>
-              Password
-            </label>
-            <Tooltip
-              title='Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character. White spaces are not allowed.'
-              placement='right'>
-              <TextField
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <label className='sign-up-label' htmlFor='createdAt'>
+                Password
+              </label>
+              <Tooltip
+                title='Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
+                placement='right'
+                enterTouchDelay={0}>
+                <IconButton aria-label='password-info' sx={{ pt: 0, pb: 0 }}>
+                  <HelpOutlineIcon style={{ fontSize: 18 }} />
+                </IconButton>
+              </Tooltip>
+            </Box>
+            <FormControl variant='outlined' fullWidth>
+              <OutlinedInput
                 id='password'
                 name='password'
-                type='password'
+                type={showPassword ? 'text' : 'password'}
                 value={registerValue.password}
                 onChange={handleInputChange}
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      style={{
+                        backgroundColor: '#d3d3d333',
+                        borderRadius: '0',
+                        height: '100%',
+                        borderTopRightRadius: '4px',
+                        borderBottomRightRadius: '4px',
+                        position: 'absolute',
+                        top: 0,
+                        bottom: 0,
+                        right: '13px',
+                        zIndex: 1,
+                      }}
+                      edge='end'>
+                      {showPassword ? (
+                        <VisibilityOutlined />
+                      ) : (
+                        <VisibilityOffOutlined />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                labelWidth={0}
               />
-            </Tooltip>
+            </FormControl>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <label className='sign-up-label' htmlFor='sessionTimeout'>
+            <label className='sign-up-label' htmlFor='confirmPassword'>
               Confirm Password
             </label>
-            <TextField
-              id='confirmPassword'
-              name='confirmPassword'
-              type='password'
-              value={registerValue.confirmPassword}
-              onChange={handleInputChange}
-            />
+            <FormControl variant='outlined'>
+              <OutlinedInput
+                id='confirmPassword'
+                name='confirmPassword'
+                type={showConfirmPassword ? 'text' : 'password'}
+                value={registerValue.confirmPassword}
+                onChange={handleInputChange}
+                required
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <IconButton
+                      aria-label='toggle password visibility'
+                      onClick={handleClickShowConfirmPassword}
+                      style={{
+                        backgroundColor: '#d3d3d333',
+                        borderRadius: '0',
+                        height: '100%',
+                        borderTopRightRadius: '4px',
+                        borderBottomRightRadius: '4px',
+                        position: 'absolute',
+                        top: 0,
+                        bottom: 0,
+                        right: '13px',
+                        zIndex: 1,
+                      }}
+                      edge='end'>
+                      {showConfirmPassword ? (
+                        <VisibilityOutlined />
+                      ) : (
+                        <VisibilityOffOutlined />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
           </Box>
         </Box>
         <Box
