@@ -4,21 +4,7 @@ import { selectPermissions } from '../../features/permissions/permissionsSlice';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser } from '../../features/users/usersThunks';
 import { useToast } from '../../hoc/ToastProvider';
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Avatar,
-  IconButton,
-  Typography,
-  Collapse,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Button,
-} from '@mui/material';
+import { Card, CardHeader, CardContent, Avatar, IconButton, Typography, Collapse, Dialog, DialogActions, DialogContent, DialogContentText,DialogTitle, Button } from '@mui/material';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
