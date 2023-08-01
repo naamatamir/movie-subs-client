@@ -7,7 +7,7 @@ import {
   addPermission,
 } from '../../features/permissions/permissionsThunks';
 import { selectPermissions } from '../../features/permissions/permissionsSlice';
-import { useToast } from '../../hoc/ToastProvider'
+import { useToast } from '../../hoc/ToastProvider';
 import Box from '@mui/material/Box';
 import TextField from '../shared/TextField';
 import Button from '../shared/Button';
@@ -80,7 +80,7 @@ const EditUserForm = () => {
           })
         ).unwrap();
       }
-      showToast('User added successfully!', 'success');
+      showToast('User updated successfully!', 'success');
       navigate('/users');
       console.log('user updated:', userData);
     } catch (error) {
