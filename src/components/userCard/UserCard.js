@@ -12,6 +12,12 @@ import {
   IconButton,
   Typography,
   Collapse,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
 } from '@mui/material';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
@@ -25,10 +31,7 @@ const UserCard = ({ user, index }) => {
   const dispatch = useDispatch();
   const showToast = useToast();
   const [expanded, setExpanded] = useState(false);
-
-  // if (!user || !user._id || !permissions) {
-  //   return null;
-  // }
+  const [openDialog, setOpenDialog] = useState(false);
 
   const id = user?._id;
 
@@ -45,7 +48,12 @@ const UserCard = ({ user, index }) => {
     navigate(`/users/${user._id}/edit`, { state: { user, userPermissions } });
   };
 
+  const openDeleteDialog = () => {
+    setOpenDialog(true);
+  };
+
   const handleDelete = (e) => {
+    setOpenDialog(false);
     try {
       dispatch(deleteUser(id));
       showToast('User deleted successfully!', 'success', 6000, () =>
@@ -72,6 +80,12 @@ const UserCard = ({ user, index }) => {
     updateSubscription: 'Update Subscription',
     deleteSubscription: 'Delete Subscription',
   };
+
+  const allPossiblePermissions = Object.keys(permissionMapping);
+
+  const isAdmin = allPossiblePermissions.every((permission) =>
+    userPermissions.includes(permission)
+  );
 
   return (
     <Card
@@ -116,7 +130,6 @@ const UserCard = ({ user, index }) => {
           </span>
         </Typography>
       </CardContent>
-
       <div
         className='user-action-buttons'
         style={{ display: 'flex', alignItems: 'center' }}>
@@ -147,14 +160,18 @@ const UserCard = ({ user, index }) => {
           <IconButton
             aria-label='delete'
             className='action-button delete'
-            onClick={handleDelete}>
+            onClick={openDeleteDialog}>
             <DeleteOutlinedIcon className='svg-icon' />
           </IconButton>
         </div>
       </div>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <CardContent sx={{ padding: 0, marginLeft: 3, textAlign: 'left' }}>
-          {userPermissions.length > 0 ? (
+          {isAdmin ? (
+            <Typography className='user-data-value'>
+              Admin with all permissions
+            </Typography>
+          ) : (
             userPermissions.map((permission) => (
               <Typography
                 key={permission}
@@ -163,13 +180,57 @@ const UserCard = ({ user, index }) => {
                 {permissionMapping[permission] || permission}
               </Typography>
             ))
-          ) : (
-            <Typography className='user-data-value'>
-              User is admin <br /> with all permissions
-            </Typography>
           )}
         </CardContent>
       </Collapse>
+      <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'>
+        <DialogTitle id='alert-dialog-title' style={{ textAlign: 'center' }}>
+          {'Confirm Deletion'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            Are you sure you want to delete{' '}
+            {`${user?.firstName} ${user?.lastName}`}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: 'center',
+            pb: 3,
+          }}>
+          <Button
+            variant='contained'
+            color='danger'
+            sx={{
+              color: 'white',
+              borderRadius: '7px',
+              '&:hover': {
+                backgroundColor: '#d32f2f',
+              },
+            }}
+            onClick={handleDelete}>
+            Delete
+          </Button>
+          <Button
+            variant='contained'
+            color='secondary'
+            sx={{
+              color: 'white',
+              borderRadius: '7px',
+              '&:hover': {
+                backgroundColor: '#1ca7d1',
+              },
+            }}
+            onClick={() => setOpenDialog(false)}
+            autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };
