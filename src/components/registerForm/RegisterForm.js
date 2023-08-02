@@ -8,7 +8,8 @@ import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import './registerFormStyles.css';
 
-const RegisterForm = () => {
+const RegisterForm = (
+) => {
   const [registerValue, setRegisterValue] = useState({
     username: '',
     firstName: '',
@@ -159,7 +160,7 @@ const RegisterForm = () => {
               </label>
               <Tooltip
                 title='Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
-                placement='right'
+                placement='top'
                 enterTouchDelay={0}>
                 <IconButton aria-label='password-info' sx={{ pt: 0, pb: 0 }}>
                   <HelpOutlineIcon style={{ fontSize: 18 }} />
@@ -198,7 +199,7 @@ const RegisterForm = () => {
                     </IconButton>
                   </InputAdornment>
                 }
-                labelWidth={0}
+                labelwidth={0}
               />
             </FormControl>
           </Box>
