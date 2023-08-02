@@ -1,16 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
-import {
-  AppBar,
-  Container,
-  Toolbar,
-  Typography,
-  Box,
-  IconButton,
-  Menu,
-  Button,
-  MenuItem,
+import { AppBar, Container, Toolbar, Typography, Box, IconButton, Menu, Button, MenuItem,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import MovieFilterOutlinedIcon from '@mui/icons-material/MovieFilterOutlined';
@@ -35,10 +26,10 @@ const NavBar = () => {
     localStorage.removeItem('token');
     navigate('/login');
   };
-  
+
   let pages = ['Movies', 'Members'];
 
-  if(isAdmin) {
+  if (isAdmin) {
     pages.unshift('Users');
   }
   pages.push('Log out');
@@ -97,20 +88,21 @@ const NavBar = () => {
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}>
-              {pages.map((page) => (
-                page !== "Log out"
-               ? <MenuItem
-                  key={page}
-                  component={Link}
-                  to={`/${page}`}
-                  onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{page}</Typography>
+              {pages.map((page) =>
+                page !== 'Log out' ? (
+                  <MenuItem
+                    key={page}
+                    component={Link}
+                    to={`/${page}`}
+                    onClick={handleCloseNavMenu}>
+                    <Typography textAlign='center'>{page}</Typography>
                   </MenuItem>
-                  : <MenuItem  key={page}
-                  onClick={logout}>
-                  <Typography textAlign='center'>{page}</Typography>
-                </MenuItem>
-              ))}
+                ) : (
+                  <MenuItem key={page} onClick={logout}>
+                    <Typography textAlign='center'>{page}</Typography>
+                  </MenuItem>
+                )
+              )}
             </Menu>
           </Box>
           <MovieFilterOutlinedIcon
@@ -134,25 +126,27 @@ const NavBar = () => {
             Reel Control
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              page !== "Log out"
-             ? <Button
-                key={page}
-                component={Link}
-                to={`/${page}`}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}>
-                {page}
+            {pages.map((page) =>
+              page !== 'Log out' ? (
+                <Button
+                  key={page}
+                  component={Link}
+                  to={`/${page}`}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}>
+                  {page}
                 </Button>
-                : <Button  key={page}
-                onClick={logout}
-                sx={{ my: 2, color: 'white', display: 'block' }}>
-                {page}
-                  </Button>
-            ))}
+              ) : (
+                <Button
+                  key={page}
+                  onClick={logout}
+                  sx={{ my: 2, color: 'white', display: 'block' }}>
+                  {page}
+                </Button>
+              )
+            )}
           </Box>
-          <Typography variant='p' color='inherit'>
-          </Typography>
+          <Typography variant='p' color='inherit'></Typography>
         </Toolbar>
       </Container>
     </AppBar>

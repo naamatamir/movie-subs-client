@@ -1,7 +1,7 @@
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Layout from '../components/shared/Layout';
 import LoginPage from '../pages/loginPage/LoginPage';
-import CreateAccountPage from '../pages/createAccountPage/CreateAcoountPage'
+import CreateAccountPage from '../pages/createAccountPage/CreateAcoountPage';
 import MenuPage from '../pages/MenuPage';
 import MoviesPage from '../pages/moviesPage/MoviesPage';
 import EditMoviePage from '../pages/editMoviePage/EditMoviePage';
@@ -13,7 +13,7 @@ import MembersPage from '../pages/membersPage/MembersPage';
 import EditMemberPage from '../pages/editMemberPage/EditMemberPage';
 import AddMemberPage from '../pages/addMemberPage/AddMemberPage';
 
-const AppRoutes = ({ isAuthenticated , permissions }) => (
+const AppRoutes = ({ isAuthenticated }) => (
   <Routes>
     {!isAuthenticated ? (
       <Route path='/' element={<LoginPage />} />
@@ -25,10 +25,7 @@ const AppRoutes = ({ isAuthenticated , permissions }) => (
     <Route path='register' element={<CreateAccountPage />} />
     <Route path='menu' element={<MenuPage />} />
 
-    <Route
-      path='/*'
-      element={<Layout isAuthenticated={isAuthenticated} />}
-    >
+    <Route path='/*' element={<Layout isAuthenticated={isAuthenticated} />}>
       <Route path='movies/*' element={<Outlet />}>
         <Route index element={<MoviesPage />} />
         <Route path='add' element={<AddMoviePage />} />

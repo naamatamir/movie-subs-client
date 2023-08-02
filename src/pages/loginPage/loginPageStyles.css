@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  min-height: 100vh;
+  max-height: 100vh;
 }
 
 .login-form-wrapper {

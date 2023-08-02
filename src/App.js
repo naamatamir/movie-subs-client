@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@emotion/react';
@@ -10,15 +8,18 @@ import AppRoutes from './routes/routes';
 import { ToastProvider } from './hoc/ToastProvider';
 import LoadingOverlay from './components/shared/loadingOverlay/LoadingOverlay';
 
-axios.interceptors.request.use(function (config) {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
+axios.interceptors.request.use(
+  function (config) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
   }
-  return config;
-}, function (error) {
-  return Promise.reject(error);
-});
+);
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,13 +48,16 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <CssBaseline />
       <div className='App'>
-      <ToastProvider>
-        <Router>
-          <AppRoutes isAuthenticated={isAuthenticated} permissions={permissions} />
-        </Router>
-      </ToastProvider>
+        <ToastProvider>
+          <Router>
+            <AppRoutes
+              isAuthenticated={isAuthenticated}
+              permissions={permissions}
+            />
+          </Router>
+        </ToastProvider>
       </div>
     </ThemeProvider>
   );
