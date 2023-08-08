@@ -26,11 +26,11 @@ const MenuPage = () => {
   
     return (
       <Container className='menu-wrapper' height='100vh'>
-        <Button onClick={handleMoviesNavigation}>Movies</Button>
-        <Button onClick={() => navigate('/members')}>Members</Button>
         {isAdmin && (
           <Button onClick={() => navigate('/users')}>Users</Button>
         )}
+        <Button onClick={handleMoviesNavigation}>Movies</Button>
+        <Button onClick={() => navigate('/members')}>Members</Button>
         <Button onClick={logout}>Log out</Button>
       </Container>
     );
