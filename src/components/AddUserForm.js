@@ -26,12 +26,19 @@ const AddUserForm = () => {
   const showToast = useToast();
   const theme = useTheme();
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (e) => {
+    let value = e.target.value;
+
+    if (e.target.name === 'username') {
+      value = value.toLowerCase();
+    } else if (e.target.name === 'firstName' || e.target.name === 'lastName') {
+      value = value.charAt(0).toUpperCase() + value.slice(1);
+    }
     setUserData({
       ...userData,
-      [event.target.name]: event.target.value,
+      [e.target.name]: value,
     });
-  };
+};
 
   const handlePermissionChange = (newPermissions) => {
     setUserData((prevUserData) => ({
