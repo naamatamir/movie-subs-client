@@ -175,7 +175,7 @@ const UserCard = ({ user, index }) => {
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'>
         <DialogTitle id='alert-dialog-title' style={{ textAlign: 'center' }}>
-          {'Confirm Deletion'}
+          {'Delete Confirmation'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
