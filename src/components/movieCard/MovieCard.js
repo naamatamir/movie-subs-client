@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteMovie } from '../../features/movies/moviesThunks';
@@ -7,13 +8,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Popper from '@mui/material/Popper';
 import { useToast } from '../../hoc/ToastProvider';
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Button,
-} from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import './movieCardStyles.css';
 
 const MovieCard = ({ movie, permissions,
@@ -24,6 +19,7 @@ const MovieCard = ({ movie, permissions,
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const showToast = useToast();
+  const [openDialog, setOpenDialog] = useState(false);
 
 const id = movie._id
 
@@ -76,7 +72,12 @@ const id = movie._id
     }
   };
 
+  const openDeleteDialog = () => {
+    setOpenDialog(true);
+  };
+
   const handleDelete = (e) => {
+    setOpenDialog(false);
     if (
       isAdmin ||
       permissions.includes('deleteMovie')) {
@@ -138,8 +139,55 @@ const id = movie._id
             >
               edit
             </Button>
-            <Button className='delete' onClick={handleDelete}>delete</Button>
+            <Button className='delete' onClick={openDeleteDialog}>delete</Button>
           </div>
+          <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'>
+        <DialogTitle id='alert-dialog-title' style={{ textAlign: 'center' }}>
+          {'Delete Confirmation'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            Are you sure you want to delete{' '} {`${movie.name}`}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: 'center',
+            pb: 3,
+          }}>
+          <Button
+            variant='contained'
+            color='danger'
+            sx={{
+              color: 'white',
+              borderRadius: '7px',
+              '&:hover': {
+                backgroundColor: '#d32f2f',
+              },
+            }}
+            onClick={handleDelete}>
+            Delete
+          </Button>
+          <Button
+            variant='contained'
+            color='secondary'
+            sx={{
+              color: 'white',
+              borderRadius: '7px',
+              '&:hover': {
+                backgroundColor: '#1ca7d1',
+              },
+            }}
+            onClick={() => setOpenDialog(false)}
+            autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
           <div className='autocomplete-wrapper'>
             {subscriptionsData.length > 0 && (
               <Autocomplete
@@ -193,6 +241,7 @@ const id = movie._id
       </CardContent>
       <CardMedia
         component='img'
+        loading='lazy'
         sx={{
           width: '140px',
           backgroundImage: `url(${movie.image})`,
