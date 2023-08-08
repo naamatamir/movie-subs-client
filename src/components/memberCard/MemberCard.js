@@ -6,14 +6,7 @@ import { getSubscriptions } from '../../features/subscriptions/subscriptionsThun
 import { selectMovies } from '../../features/movies/moviesSlice';
 import { useToast } from '../../hoc/ToastProvider';
 import { deleteMember } from '../../features/members/membersThunks';
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Avatar,
-  IconButton,
-  Typography,
-  Collapse,
+import { Card, CardHeader, CardContent, Avatar, IconButton, Typography, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button 
 } from '@mui/material';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
@@ -30,7 +23,13 @@ const MemberCard = ({ member, index, subscriptions }) => {
   const id = member._id;
 
   const [expanded, setExpanded] = useState(false);
+  // const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
+  const openDeleteDialog = () => {
+    setOpenDialog(true);
+  };
+  
   let movieNames = [];
   let dates = [];
   let moviesList = [];
@@ -73,6 +72,7 @@ const MemberCard = ({ member, index, subscriptions }) => {
   };
 
   const handleDelete = (e) => {
+    setOpenDialog(false);
     try {
       dispatch(deleteMember(id));
       showToast('Member deleted successfully!', 'success', 6000, () =>
@@ -156,7 +156,7 @@ const MemberCard = ({ member, index, subscriptions }) => {
           <IconButton
             aria-label='delete'
             className='action-button delete'
-            onClick={handleDelete}>
+            onClick={openDeleteDialog}>
             <DeleteOutlinedIcon className='svg-icon' />
           </IconButton>
         </div>
@@ -181,6 +181,54 @@ const MemberCard = ({ member, index, subscriptions }) => {
           )}
         </CardContent>
       </Collapse>
+      <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'>
+        <DialogTitle id='alert-dialog-title' style={{ textAlign: 'center' }}>
+          {'Delete Confirmation'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            Are you sure you want to delete{' '}
+            {`${member?.name}`}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: 'center',
+            pb: 3,
+          }}>
+          <Button
+            variant='contained'
+            color='danger'
+            sx={{
+              color: 'white',
+              borderRadius: '7px',
+              '&:hover': {
+                backgroundColor: '#d32f2f',
+              },
+            }}
+            onClick={handleDelete}>
+            Delete
+          </Button>
+          <Button
+            variant='contained'
+            color='secondary'
+            sx={{
+              color: 'white',
+              borderRadius: '7px',
+              '&:hover': {
+                backgroundColor: '#1ca7d1',
+              },
+            }}
+            onClick={() => setOpenDialog(false)}
+            autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };
