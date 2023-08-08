@@ -3,23 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '../shared/Button';
-import Typography from '@mui/material/Typography';
+import { Typography, Link, FormControl, OutlinedInput, InputAdornment, IconButton, Alert } from '@mui/material';
 import TextField from '../shared/TextField';
-import Link from '@mui/material/Link';
 import jwt_decode from 'jwt-decode';
+import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
 
 const LoginForm = () => {
   const [loginValue, setLoginValue] = useState({
     username: '',
     password: '',
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setLoginValue({
       ...loginValue,
-      // [e.target.name]: e.target.value,
       [e.target.name]:
         e.target.name === 'username'
           ? e.target.value.toLowerCase()
@@ -27,12 +28,16 @@ const LoginForm = () => {
     });
   };
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoginError(false);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_GATEWAY_URL}/authUsers/login`,
-        // 'http://localhost:8002/authUsers/login',
         {
           username: loginValue.username,
           password: loginValue.password,
@@ -55,6 +60,7 @@ const LoginForm = () => {
       }
     } catch (error) {
       console.error('Failed to login', error);
+      setLoginError(true);
     }
   };
 
@@ -98,15 +104,53 @@ const LoginForm = () => {
             <label className='login-label' htmlFor='password'>
               Password
             </label>
-            <TextField
-              id='password'
-              name='password'
-              type='password'
-              value={loginValue.password}
-              onChange={handleInputChange}
-            />
+            <FormControl variant='outlined' fullWidth>
+              <OutlinedInput
+                id='password'
+                name='password'
+                type={showPassword ? 'text' : 'password'}
+                value={loginValue.password}
+                onChange={handleInputChange}
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      style={{
+                        backgroundColor: '#d3d3d333',
+                        borderRadius: '0',
+                        height: '100%',
+                        borderTopRightRadius: '4px',
+                        borderBottomRightRadius: '4px',
+                        position: 'absolute',
+                        top: 0,
+                        bottom: 0,
+                        right: '13px',
+                        zIndex: 1,
+                      }}
+                      edge='end'>
+                      {showPassword ? (
+                        <VisibilityOutlined />
+                      ) : (
+                        <VisibilityOffOutlined />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                labelwidth={0}
+              />
+            </FormControl>
           </Box>
         </Box>
+        {loginError && (
+          <Alert
+            severity='error'
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+            incorrect username <br /> or password
+          </Alert>
+        )}
         <Box
           className='login-action-buttons'
           sx={{
