@@ -2,10 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../features/users/usersThunks';
-import {
-  updatePermission,
-  addPermission,
-} from '../../features/permissions/permissionsThunks';
+import { updatePermission, addPermission } from '../../features/permissions/permissionsThunks';
 import { selectPermissions } from '../../features/permissions/permissionsSlice';
 import { useToast } from '../../hoc/ToastProvider';
 import Box from '@mui/material/Box';
@@ -218,7 +215,6 @@ const EditUserForm = () => {
             Update
           </Button>
           <Button
-            type='submit'
             size='large'
             bgColor={theme.palette.danger.main}
             onClick={() => navigate(`/users`)}

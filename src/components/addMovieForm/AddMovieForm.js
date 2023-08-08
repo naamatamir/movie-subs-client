@@ -2,17 +2,12 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addMovie } from '../../features/movies/moviesThunks';
-import { useToast } from '../../hoc/ToastProvider'
+import { useToast } from '../../hoc/ToastProvider';
 import TextField from '../shared/TextField';
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from '@mui/material';
+import Button from '../shared/Button';
+import { Box, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
+import { useTheme } from '@emotion/react';
 
 const AddMovieForm = () => {
   const [movieData, setMovieData] = useState({
@@ -25,6 +20,7 @@ const AddMovieForm = () => {
   const dispatch = useDispatch();
   const showToast = useToast();
   const currentYear = new Date().getFullYear();
+  const theme = useTheme();
 
   const handleInputChange = (e) => {
     setMovieData({
@@ -39,7 +35,7 @@ const AddMovieForm = () => {
       premiered: e.target.value,
     });
   };
-  
+
   const [imageUrl, setImageUrl] = useState('');
   const [showUrlDialog, setShowUrlDialog] = useState(false);
 
@@ -66,12 +62,12 @@ const AddMovieForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const year = parseInt(movieData.premiered);
-  if (isNaN(year) || year < 1888 || year > currentYear) {
-    console.error('Invalid year');
-    return;
-  }
+    if (isNaN(year) || year < 1888 || year > currentYear) {
+      console.error('Invalid year');
+      return;
+    }
     try {
-      dispatch(addMovie( movieData ));
+      dispatch(addMovie(movieData));
       console.log('movie added:', movieData.name);
       showToast('Movie added successfully!', 'success');
       navigate('/movies');
@@ -150,39 +146,44 @@ const AddMovieForm = () => {
               onChange={handlePremieredYearChange}
             />
           </Box>
-          <div className='edit-action-buttons'>
-            <Button
-              size='large'
-              variant='contained'
-              sx={{
-                borderRadius: '7px',
-                padding: '0 2.3rem',
-                '&:hover': {
-                  backgroundColor: '#6b48c8',
+          <Box
+            className='edit-action-buttons'
+            sx={{
+              mt: 2,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              '& > :not(style)': {
+                mt: 1,
+                mb: 1,
+                mr: 1.5,
+                ml: 1.5,
+              },
+              '@media (max-width: 768px)': {
+                flexDirection: 'column',
+                alignItems: 'center',
+                '& > :not(style)': {
+                  width: '25ch',
                 },
-              }}
-              onClick={handleSubmit}>
-              Add
+              },
+            }}>
+            <Button
+              type='submit'
+              size='large'
+              bgColor={theme.palette.primary.main}
+              hoverColor='#6b48c8'>
+              Update
             </Button>
             <Button
               size='large'
-              variant='contained'
-              color='danger'
-              sx={{
-                color: 'white',
-                borderRadius: '7px',
-
-                '&:hover': {
-                  backgroundColor: '#d32f2f',
-                },
-              }}
-              onClick={() => navigate(`/movies`)}>
+              bgColor={theme.palette.danger.main}
+              onClick={() => navigate(`/movies`)}
+              hoverColor='#d32f2f'>
               Cancel
             </Button>
-          </div>
+          </Box>
         </Box>
       </Box>
-
       <Dialog open={showUrlDialog} onClose={handleUrlDialogClose}>
         <DialogTitle>Enter Image URL</DialogTitle>
         <DialogContent>
@@ -196,8 +197,17 @@ const AddMovieForm = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleUrlDialogClose}>Cancel</Button>
-          <Button onClick={handleUrlDialogSubmit}>Submit</Button>
+          <Button
+            onClick={handleUrlDialogSubmit}
+            bgColor={theme.palette.primary.main}
+            hoverColor='#6b48c8'>
+            Submit
+          </Button>
+          <Button
+            onClick={handleUrlDialogClose}
+            bgColor={theme.palette.danger.main}>
+            Cancel
+          </Button>
         </DialogActions>
       </Dialog>
     </form>

@@ -1,8 +1,6 @@
-
-
-  .movie-fields-wrpaper{
-color:#a7a5a5;
-  }
+.movie-fields-wrpaper {
+  color: #a7a5a5;
+}
 
 .movie-img {
   border-radius: 5px;
@@ -11,14 +9,6 @@ color:#a7a5a5;
   background-color: '#fff';
 }
 
-.edit-action-buttons{
-display: flex;
-direction: row; 
-justify-content: space-between;
-margin-top:1.8rem;
+.movie-label-year {
+  margin-top: 1rem;
 }
-
-.movie-label-year{
-    margin-top:1rem;
-}
-

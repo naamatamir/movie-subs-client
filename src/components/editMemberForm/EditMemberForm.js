@@ -129,7 +129,6 @@ const EditMemberForm = () => {
             Update
           </Button>
           <Button
-            type='submit'
             size='large'
             bgColor={theme.palette.danger.main}
             onClick={() => navigate(`/members`)}
