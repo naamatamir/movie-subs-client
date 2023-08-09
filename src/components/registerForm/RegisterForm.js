@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
+import LoadingOverlay from '../shared/loadingOverlay/LoadingOverlay';
 import Button from '../shared/Button';
 import { Box, Typography, TextField, Link, Tooltip, IconButton, InputAdornment, OutlinedInput, FormControl } from '@mui/material';
 import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
@@ -18,6 +19,7 @@ const RegisterForm = (
     confirmPassword: '',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -46,6 +48,7 @@ const RegisterForm = (
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); 
     if (registerValue.password !== registerValue.confirmPassword) {
       alert('Passwords do not match');
       return;
@@ -70,6 +73,7 @@ const RegisterForm = (
         localStorage.setItem('permissions', JSON.stringify(permissions));
 
         console.log('Registration successful');
+        setIsLoading(false);
         navigate('/menu');
       } else {
         throw new Error('Registration failed');
@@ -79,10 +83,13 @@ const RegisterForm = (
         'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character. White spaces are not allowed.'
       );
       console.error('Failed to create account', error);
+      setIsLoading(false);
     }
   };
 
   return (
+    <>
+    <LoadingOverlay loading={isLoading} />
     <form onSubmit={handleSubmit}>
       <Box
         className='sign-up-form'
@@ -278,7 +285,8 @@ const RegisterForm = (
           </Link>
         </Typography>
       </Box>
-    </form>
+      </form>
+      </>
   );
 };
 

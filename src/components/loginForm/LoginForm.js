@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import LoadingOverlay from '../shared/loadingOverlay/LoadingOverlay';
 import Box from '@mui/material/Box';
 import Button from '../shared/Button';
 import { Typography, Link, FormControl, OutlinedInput, InputAdornment, IconButton, Alert } from '@mui/material';
@@ -15,6 +16,7 @@ const LoginForm = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,6 +36,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); 
     setLoginError(false);
     try {
       const response = await axios.post(
@@ -54,6 +57,7 @@ const LoginForm = () => {
         localStorage.setItem('permissions', JSON.stringify(permissions));
 
         console.log('Login successful');
+        setIsLoading(false);
         navigate('/menu');
       } else {
         throw new Error('Login failed');
@@ -61,10 +65,13 @@ const LoginForm = () => {
     } catch (error) {
       console.error('Failed to login', error);
       setLoginError(true);
+      setIsLoading(false);
     }
   };
 
   return (
+    <>
+    <LoadingOverlay loading={isLoading} />
     <form onSubmit={handleSubmit}>
       <Box
         className='login-form'
@@ -181,7 +188,8 @@ const LoginForm = () => {
           </Link>
         </Typography>
       </Box>
-    </form>
+      </form>
+      </>
   );
 };
 

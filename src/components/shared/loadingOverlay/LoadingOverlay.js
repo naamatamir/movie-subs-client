@@ -1,5 +1,5 @@
 
-import LoadingSpinner from '../LoadingSpinner';
+import LoadingSpinnerWithLabel from '../SpinnerWithProgress';
 import './loadingOverlayStyles.css'
 
 const LoadingOverlay = ({loading}) => {
@@ -9,7 +9,7 @@ const LoadingOverlay = ({loading}) => {
 
   return (
     <div className='loading-overlay'>
-      <LoadingSpinner />
+      <LoadingSpinnerWithLabel/>
     </div>
   );
 };
