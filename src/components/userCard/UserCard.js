@@ -4,13 +4,13 @@ import { selectPermissions } from '../../features/permissions/permissionsSlice';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser } from '../../features/users/usersThunks';
 import { useToast } from '../../hoc/ToastProvider';
-import { Card, CardHeader, CardContent, Avatar, IconButton, Typography, Collapse, Dialog, DialogActions, DialogContent, DialogContentText,DialogTitle, Button } from '@mui/material';
+import { Card, CardHeader, CardContent, Avatar, IconButton, Typography, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './UserCardStyles.css';
 
-const UserCard = ({ user, index }) => {
+const UserCard = ({ user = {}, index }) => {
   const permissions = useSelector(selectPermissions);
 
   const navigate = useNavigate();
@@ -22,7 +22,9 @@ const UserCard = ({ user, index }) => {
   const id = user?._id;
 
   const userPermissionsObject = permissions
-    ? permissions.find((permission) => permission.authUserId === user?._id)
+    ? permissions.find(
+        (permission) => permission && permission.authUserId === user?._id
+      )
     : { permissions: [] };
 
   const userPermissions = userPermissionsObject?.permissions || [];
@@ -157,7 +159,7 @@ const UserCard = ({ user, index }) => {
             <Typography className='user-data-value'>
               Admin with all permissions
             </Typography>
-          ) : (
+          ) : userPermissions && userPermissions.length > 0 ? (
             userPermissions.map((permission) => (
               <Typography
                 key={permission}
@@ -166,6 +168,10 @@ const UserCard = ({ user, index }) => {
                 {permissionMapping[permission] || permission}
               </Typography>
             ))
+          ) : (
+            <Typography className='user-data-value'>
+              No permissions assigned.
+            </Typography>
           )}
         </CardContent>
       </Collapse>
