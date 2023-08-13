@@ -46,13 +46,24 @@ const RegisterForm = (
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  const isPasswordValid = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); 
     if (registerValue.password !== registerValue.confirmPassword) {
       alert('Passwords do not match');
       return;
     }
+    if (!isPasswordValid(registerValue.password)) {
+      alert(
+        'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character. White spaces are not allowed.'
+      );
+      return;
+    }
+    setIsLoading(true);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_GATEWAY_URL}/authUsers/register`,
@@ -80,7 +91,7 @@ const RegisterForm = (
       }
     } catch (error) {
       alert(
-        'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character. White spaces are not allowed.'
+        'Failed to create account. Please try again.'
       );
       console.error('Failed to create account', error);
       setIsLoading(false);
