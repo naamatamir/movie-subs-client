@@ -1,65 +1,66 @@
 import { useState, useEffect } from 'react';
-import Button from './Button';
+import Button from '../Button';
 import { useTheme } from '@emotion/react';
 import { Box } from '@mui/material';
+import './loadingQuotesStyles.css';
 
 const allQuotes = [
-  { text: 'May the Force be with you.', movie: 'Star Wars' },
-  { text: "There's no place like home.", movie: 'The Wizard of Oz' },
+  { text: 'May the Force be with you', movie: 'Star Wars' },
+  { text: "There's no place like home", movie: 'The Wizard of Oz' },
   { text: "I'm the king of the world!", movie: 'Titanic' },
   {
-    text: 'Carpe diem. Seize the day, boys. Make your lives extraordinary.',
+    text: 'Carpe diem. Seize the day, boys. Make your lives extraordinary',
     movie: 'Dead Poets Society',
   },
   {
-    text: 'Elementary, my dear Watson.',
+    text: 'Elementary, my dear Watson',
     movie: 'The Adventures of Sherlock Holmes',
   },
   { text: 'life is like a box of chocolates', movie: 'Forrest Gump' },
-  { text: "I'll be back.", movie: 'The Terminator' },
-  { text: "You're gonna need a bigger boat.", movie: 'Jaws' },
-  { text: "Here's looking at you, kid.", movie: 'Casablanca' },
-  { text: 'My precious.', movie: 'The Lord of the Rings' },
-  { text: 'Houston, we have a problem.', movie: 'Apollo 13' },
+  { text: "I'll be back", movie: 'The Terminator' },
+  { text: "You're gonna need a bigger boat", movie: 'Jaws' },
+  { text: "Here's looking at you, kid", movie: 'Casablanca' },
+  { text: 'My precious', movie: 'The Lord of the Rings' },
+  { text: 'Houston, we have a problem', movie: 'Apollo 13' },
   { text: "There's no crying in baseball!", movie: 'A League of Their Own' },
   { text: "You can't handle the truth!", movie: 'A Few Good Men' },
-  { text: 'A martini. Shaken, not stirred.', movie: 'Goldfinger' },
-  { text: 'If you build it, he will come.', movie: 'Field of Dreams' },
+  { text: 'A martini. Shaken, not stirred', movie: 'Goldfinger' },
+  { text: 'If you build it, he will come', movie: 'Field of Dreams' },
   {
-    text: 'Keep your friends close, but your enemies closer.',
+    text: 'Keep your friends close, but your enemies closer',
     movie: 'The Godfather',
   },
-  { text: 'I am your father.', movie: 'Star Wars' },
-  { text: 'Just keep swimming.', movie: 'Finding Nemo' },
-  { text: 'You is kind. You is smart. You is important.', movie: 'The Help' },
-  { text: 'Hasta la vista, baby.', movie: 'Terminator 2: Judgment Day' },
+  { text: 'I am your father', movie: 'Star Wars' },
+  { text: 'Just keep swimming', movie: 'Finding Nemo' },
+  { text: 'You is kind. You is smart. You is important', movie: 'The Help' },
+  { text: 'Hasta la vista, baby', movie: 'Terminator 2: Judgment Day' },
   { text: 'You talking to me?', movie: 'Taxi Driver' },
   {
-    text: "Roads? Where we're going we don't need roads.",
+    text: "Roads? Where we're going we don't need roads",
     movie: 'Back to the Future',
   },
-  { text: "That'll do, pig. That'll do.", movie: 'Babe' },
+  { text: "That'll do, pig. That'll do", movie: 'Babe' },
   { text: "I'm walking here! I'm walking here!", movie: 'Midnight Cowboy' },
   { text: 'Stella! Hey, Stella!', movie: 'A Streetcar Named Desire' },
   { text: 'As if!', movie: 'Clueless' },
   { text: "Here's Johnny!", movie: 'The Shining' },
-  { text: 'Rosebud.', movie: 'Citizen Kane' },
-  { text: "I'll have what she's having.", movie: 'When Harry Met Sally' },
+  { text: 'Rosebud', movie: 'Citizen Kane' },
+  { text: "I'll have what she's having", movie: 'When Harry Met Sally' },
   { text: 'Inconceivable!', movie: 'The Princess Bride' },
   {
-    text: "Fasten your seatbelts. It's going to be a bumpy night.",
+    text: "Fasten your seatbelts. It's going to be a bumpy night",
     movie: 'All About Eve',
   },
-  { text: 'Nobody puts Baby in a corner.', movie: 'Dirty Dancing' },
-  { text: "Well, nobody's perfect.", movie: 'Some Like it Hot' },
-  { text: 'You had me at ‘hello.’', movie: 'Jerry Maguire' },
+  { text: 'Nobody puts Baby in a corner', movie: 'Dirty Dancing' },
+  { text: "Well, nobody's perfect", movie: 'Some Like it Hot' },
+  { text: 'You had me at ‘hello’', movie: 'Jerry Maguire' },
   {
     text: "They may take our lives, but they'll never take our freedom!",
     movie: 'Braveheart',
   },
   { text: 'To infinity and beyond!', movie: 'Toy Story' },
   {
-    text: "Toto, I've a feeling we're not in Kansas anymore.",
+    text: "Toto, I've a feeling we're not in Kansas anymore",
     movie: 'The Wizard of Oz',
   },
 ];
@@ -110,40 +111,16 @@ const LoadingQuotes = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h2>
+    <div className='container'>
+      <h2 className='title'>
         While this app is waking
         <br />
         Guess the movie this line's taken
       </h2>
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          color: 'black',
-          padding: '2.3rem 0',
-          height: '200px',
-          width: '400px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          margin: '0 1.2rem 1.2rem 1.2rem',
-          border: '1px solid #ccc',
-          borderRadius: '10px',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.26)',
-          transition: 'all 0.3s ease-in-out',
-        }}>
-        <h2
-          style={{
-            fontFamily: 'Consolas',
-            marginBottom: revealShow ? '0' : 'auto',
-          }}>
-          "{quote.text}"
-        </h2>
+      <Box className='quoteBox' sx={{}}>
+        <h2 className='quoteText'>"{quote.text}"</h2>
         {revealShow ? (
-          <h2 style={{ fontFamily: 'Consolas', color: 'grey' }}>
-            {quote.movie}
-          </h2>
+          <h2 className='movieName'>{quote.movie}</h2>
         ) : (
           <div style={{ height: '1em' }}></div>
         )}
@@ -151,6 +128,7 @@ const LoadingQuotes = () => {
       {!revealShow ? (
         <Button
           onClick={() => setRevealShow(true)}
+          size='large'
           bgColor={theme.palette.primary.main}
           hoverColor='#6b48c8'>
           Reveal Show
@@ -158,6 +136,7 @@ const LoadingQuotes = () => {
       ) : (
         <Button
           onClick={handleNextQuote}
+          size='large'
           bgColor={theme.palette.secondary.main}
           hoverColor='#1f9abf'>
           Next Quote

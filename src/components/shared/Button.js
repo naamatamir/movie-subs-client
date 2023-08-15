@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 const Button = ({
   type,
   children,
-  color,
   bgColor,
   hoverColor,
   textColor,
@@ -19,7 +18,6 @@ const Button = ({
   const allowedSizes = ['small', 'medium', 'large'];
   const sizeClass = allowedSizes.includes(size) ? size : 'medium';
 
-  //*!check */
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       onClick();
@@ -30,7 +28,6 @@ const Button = ({
     <MuiButton
       type={type}
       variant='contained'
-      // color={color}
       size={sizeClass}
    
       sx={{

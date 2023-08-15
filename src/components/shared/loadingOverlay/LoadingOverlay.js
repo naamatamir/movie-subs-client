@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import LoadingSpinner from '../LoadingSpinner';
-import LoadingQuotes from '../LoadingQuotes';
+import LoadingQuotes from '../loadingQuotes/LoadingQuotes';
 import './loadingOverlayStyles.css';
 
 const LoadingOverlay = ({ loading }) => {
@@ -12,7 +12,7 @@ const LoadingOverlay = ({ loading }) => {
     if (loading) {
       timer = setTimeout(() => {
         setShowQuotes(true);
-      }, 2000);
+      }, 4000);
     } else {
       setShowQuotes(false);
     }
