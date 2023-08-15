@@ -170,7 +170,7 @@ const UserCard = ({ user = {}, index }) => {
             ))
           ) : (
             <Typography className='user-data-value'>
-              No permissions assigned.
+              No permissions assigned
             </Typography>
           )}
         </CardContent>

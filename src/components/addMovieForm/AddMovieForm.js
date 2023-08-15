@@ -196,7 +196,7 @@ const AddMovieForm = () => {
             fullWidth
           />
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ justifyContent: 'center' }}>
           <Button
             onClick={handleUrlDialogSubmit}
             bgColor={theme.palette.primary.main}
@@ -205,7 +205,7 @@ const AddMovieForm = () => {
           </Button>
           <Button
             onClick={handleUrlDialogClose}
-            bgColor={theme.palette.danger.main}>
+            bgColor={theme.palette.danger.main}   hoverColor='#d32f2f'>
             Cancel
           </Button>
         </DialogActions>

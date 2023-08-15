@@ -186,7 +186,7 @@ const EditMovieForm = () => {
             Submit
           </Button>
           <Button
-            bgColor={theme.palette.secondary.main}
+            bgColor={theme.palette.secondary.main} hoverColor='#1f9abf'
             onClick={() => {
               setMovieData({ ...movieData, image: '' });
               setShowUrlDialog(false);
@@ -195,7 +195,7 @@ const EditMovieForm = () => {
           </Button>
           <Button
             onClick={handleUrlDialogClose}
-            bgColor={theme.palette.danger.main}>
+            bgColor={theme.palette.danger.main}   hoverColor='#d32f2f'>
             Cancel
           </Button>
         </DialogActions>
