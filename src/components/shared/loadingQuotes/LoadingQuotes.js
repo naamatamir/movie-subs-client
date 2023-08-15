@@ -80,32 +80,36 @@ const shuffle = (array) => {
   return array;
 };
 
+const getShuffledQuotes = (lastQuote) => {
+  let shuffledQuotes;
+  do {
+    shuffledQuotes = shuffle([...allQuotes]);
+  } while (lastQuote.text && shuffledQuotes[0].text === lastQuote.text);
+
+  return shuffledQuotes;
+};
+
 const LoadingQuotes = () => {
   const [quote, setQuote] = useState({});
-  const [remainingQuotes, setRemainingQuotes] = useState([...allQuotes]);
+  const [remainingQuotes, setRemainingQuotes] = useState([]);
   const [revealShow, setRevealShow] = useState(false);
 
   useEffect(() => {
-    if (!remainingQuotes.length) {
-      setRemainingQuotes(shuffle([...allQuotes]));
-    }
-    setQuote(remainingQuotes.pop());
+    const shuffledQuotes = getShuffledQuotes(quote);
+    setQuote(shuffledQuotes[0]);
+    setRemainingQuotes(shuffledQuotes.slice(1));
   }, []);
 
   const theme = useTheme();
 
   const handleNextQuote = () => {
     if (!remainingQuotes.length) {
-      setRemainingQuotes((prevQuotes) => {
-        const newQuotes = shuffle([...allQuotes]);
-        setQuote(newQuotes[newQuotes.length - 1]);
-        return newQuotes.slice(0, newQuotes.length - 1);
-      });
+      const shuffledQuotes = getShuffledQuotes(quote);
+      setQuote(shuffledQuotes[0]);
+      setRemainingQuotes(shuffledQuotes.slice(1));
     } else {
-      setQuote(remainingQuotes[remainingQuotes.length - 1]);
-      setRemainingQuotes((prevQuotes) =>
-        prevQuotes.slice(0, prevQuotes.length - 1)
-      );
+      setQuote(remainingQuotes[0]);
+      setRemainingQuotes((prevQuotes) => prevQuotes.slice(1));
     }
     setRevealShow(false);
   };
@@ -113,7 +117,7 @@ const LoadingQuotes = () => {
   return (
     <div className='container'>
       <h2 className='title'>
-        While this app is waking
+        While the app is waking
         <br />
         Guess the movie this line's taken
       </h2>
