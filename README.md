@@ -13,6 +13,7 @@ Server:
 - [JWT](https://www.npmjs.com/package/jsonwebtoken)
 - [Bcrypt](https://www.npmjs.com/package/bcrypt)
 - [Dotenv](https://www.npmjs.com/package/dotenv)
+
 Client:
 - [React JS](https://react.dev/) 
 - [Redux Toolkit](https://redux-toolkit.js.org/)
