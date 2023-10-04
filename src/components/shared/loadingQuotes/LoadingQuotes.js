@@ -93,10 +93,7 @@ const LoadingQuotes = () => {
   const [quote, setQuote] = useState({});
   const [remainingQuotes, setRemainingQuotes] = useState([]);
   const [revealShow, setRevealShow] = useState(false);
-  const [title, setTitle] = useState(
-    "While the app is waking\nGuess the movie this line's taken"
-  );
-  const [titleColor, setTitleColor] = useState('#6b48c8');
+  const [isFirstTitle, setIsFirstTitle] = useState(true);
   const [checked, setChecked] = useState(true);
 
   useEffect(() => {
@@ -110,13 +107,10 @@ const LoadingQuotes = () => {
       setChecked(false);
 
       setTimeout(() => {
-        setTitle(
-          "Don't despair we're Almost there!\nCan you guess this next one?"
-        );
-        setTitleColor('#1f9abf');
+        setIsFirstTitle(false);
         setChecked(true);
       }, 500);
-    }, 18000);
+    }, 15000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -138,14 +132,19 @@ const LoadingQuotes = () => {
   return (
     <div className='container'>
       <Zoom in={checked}>
-        <div className='title' style={{ color: titleColor }}>
-          {title.split('\n').map((line, index) => (
-            <span key={index}>
-              {line}
-              <br />
-            </span>
-          ))}
-        </div>
+        {isFirstTitle ? (
+          <div className='title' style={{ color: '#6b48c8' }}>
+            While the app is waking
+            <br />
+            Guess the movie this line's taken
+          </div>
+        ) : (
+          <div className='title' style={{ color: '#1f9abf' }}>
+            Don't despair we're Almost there!
+            <br />
+            Can you guess this next one?
+          </div>
+        )}
       </Zoom>
       <Box className='quoteBox' sx={{}}>
         <h2 className='quoteText'>"{quote.text}"</h2>
