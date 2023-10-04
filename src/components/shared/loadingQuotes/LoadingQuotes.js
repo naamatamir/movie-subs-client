@@ -24,7 +24,7 @@ const allQuotes = [
   { text: 'Houston, we have a problem', movie: 'Apollo 13' },
   { text: "There's no crying in baseball!", movie: 'A League of Their Own' },
   { text: "You can't handle the truth!", movie: 'A Few Good Men' },
-  { text: 'A martini. Shaken, not stirred', movie: 'Goldfinger' },
+  { text: 'A martini. Shaken, not stirred', movie: 'James Bond' },
   { text: 'If you build it, he will come', movie: 'Field of Dreams' },
   {
     text: 'Keep your friends close, but your enemies closer',
@@ -33,7 +33,7 @@ const allQuotes = [
   { text: 'I am your father', movie: 'Star Wars' },
   { text: 'Just keep swimming', movie: 'Finding Nemo' },
   { text: 'You is kind. You is smart. You is important', movie: 'The Help' },
-  { text: 'Hasta la vista, baby', movie: 'Terminator 2: Judgment Day' },
+  { text: 'Hasta la vista, baby', movie: 'Terminator 2' },
   { text: 'You talking to me?', movie: 'Taxi Driver' },
   {
     text: "Roads? Where we're going we don't need roads",
@@ -93,11 +93,24 @@ const LoadingQuotes = () => {
   const [quote, setQuote] = useState({});
   const [remainingQuotes, setRemainingQuotes] = useState([]);
   const [revealShow, setRevealShow] = useState(false);
+  const [title, setTitle] = useState(
+    "While the app is waking\nGuess the movie this line's taken"
+  );
 
   useEffect(() => {
     const shuffledQuotes = getShuffledQuotes(quote);
     setQuote(shuffledQuotes[0]);
     setRemainingQuotes(shuffledQuotes.slice(1));
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTitle(
+        "Don't despair we're Almost there!\nCan you guess this next one?"
+      );
+    }, 18000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const theme = useTheme();
@@ -116,11 +129,7 @@ const LoadingQuotes = () => {
 
   return (
     <div className='container'>
-      <h2 className='title'>
-        While the app is waking
-        <br />
-        Guess the movie this line's taken
-      </h2>
+      <h2 className='title'>{title}</h2>
       <Box className='quoteBox' sx={{}}>
         <h2 className='quoteText'>"{quote.text}"</h2>
         {revealShow ? (
