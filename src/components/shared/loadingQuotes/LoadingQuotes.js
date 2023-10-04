@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Button from '../Button';
 import { useTheme } from '@emotion/react';
-import { Box } from '@mui/material';
+import { Box, Fade } from '@mui/material';
 import './loadingQuotesStyles.css';
 
 const allQuotes = [
@@ -96,6 +96,8 @@ const LoadingQuotes = () => {
   const [title, setTitle] = useState(
     "While the app is waking\nGuess the movie this line's taken"
   );
+  const [titleColor, setTitleColor] = useState('#6b48c8');
+  const [checked, setChecked] = useState(true);
 
   useEffect(() => {
     const shuffledQuotes = getShuffledQuotes(quote);
@@ -105,9 +107,15 @@ const LoadingQuotes = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setTitle(
-        "Don't despair we're Almost there!\nCan you guess this next one?"
-      );
+      setChecked(false);
+
+      setTimeout(() => {
+        setTitle(
+          "Don't despair we're Almost there!\nCan you guess this next one?"
+        );
+        setTitleColor('#1f9abf');
+        setChecked(true);
+      }, 500);
     }, 18000);
 
     return () => clearTimeout(timer);
@@ -129,7 +137,11 @@ const LoadingQuotes = () => {
 
   return (
     <div className='container'>
-      <h2 className='title'>{title}</h2>
+      <Fade in={checked}>
+        <h2 className='title' style={{ color: titleColor }}>
+          {title}
+        </h2>
+      </Fade>
       <Box className='quoteBox' sx={{}}>
         <h2 className='quoteText'>"{quote.text}"</h2>
         {revealShow ? (

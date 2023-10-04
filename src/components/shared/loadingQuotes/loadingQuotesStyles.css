@@ -7,9 +7,8 @@
 
 .title {
   font-size: 1.5rem;
-  white-space: nowrap;
+  white-space: pre-line;
   overflow: hidden;
-  color: #6b48c8;
 }
 
 .quoteBox {
