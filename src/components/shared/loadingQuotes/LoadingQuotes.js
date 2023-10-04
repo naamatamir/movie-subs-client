@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Button from '../Button';
 import { useTheme } from '@emotion/react';
-import { Box, Fade } from '@mui/material';
+import { Box, Zoom } from '@mui/material';
 import './loadingQuotesStyles.css';
 
 const allQuotes = [
@@ -137,11 +137,16 @@ const LoadingQuotes = () => {
 
   return (
     <div className='container'>
-      <Fade in={checked}>
-        <h2 className='title' style={{ color: titleColor }}>
-          {title}
-        </h2>
-      </Fade>
+      <Zoom in={checked}>
+        <div className='title' style={{ color: titleColor }}>
+          {title.split('\n').map((line, index) => (
+            <span key={index}>
+              {line}
+              <br />
+            </span>
+          ))}
+        </div>
+      </Zoom>
       <Box className='quoteBox' sx={{}}>
         <h2 className='quoteText'>"{quote.text}"</h2>
         {revealShow ? (
